@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <style>
+        .mail-solid.icon {
+  color: #000;
+  position: absolute;
+  margin-left: 2px;
+  margin-top: 4px;
+  width: 15px;
+  height: 10px;
+  border-radius: 1px;
+  border: solid 1px currentColor;
+  background-color: currentColor;
+}
+
+.mail-solid.icon:before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: -4px;
+  width: 1px;
+  height: 10px;
+  color: white;
+  background-color: currentColor;
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotate(-54deg);
+          transform: rotate(-54deg);
+}
+
+.mail-solid.icon:after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: -4px;
+  width: 1px;
+  height: 10px;
+  color: white;
+  background-color: currentColor;
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotate(54deg);
+          transform: rotate(54deg);
+}
+    </style>
+</head>
+<body>
+    <div>
+        <h2>TEMU NG</h2>
+        <P>All data is safeguard</P>
+
+        {% if error %}
+        <p style="color: red;">{{% error %}}</p>
+        {% endif %}
+
+        <form action="POST" id="Register">
+            {% scrf_token %}
+            <div>
+                <input type="text" id="username" name="username" required placeholder="Enter username">
+            </div>
+
+            <div>
+                <label for="email"><div class="mail-solid icon"></div></label>
+                <input type="email" id="email" name="email" required placeholder="email or phone number">
+            </div>
+
+            <div>
+                <input type="password" name="password1" id="password1" required placeholder="confirm password">
+            </div>
+
+            <div>
+                <input type="password" id="password2" name="password2" required placeholder="confirm password">
+            </div>
+
+            <button type="submit" class="transfer_button">submit</button>
+        </form>
+
+        <p>already have an account? <a href="#">Login.</a></p>
+    </div>
+</body>
+</html>

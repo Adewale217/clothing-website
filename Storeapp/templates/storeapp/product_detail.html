@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ product.name }} — Product</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; margin:20px; background:#f7f7f7; color:#222; }
+    .wrap { max-width:1000px; margin:0 auto; display:flex; gap:30px; align-items:flex-start; }
+    .thumb { flex:1; }
+    .thumb img { width:100%; max-width:420px; height:auto; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.1); }
+    .details { flex:1; background:#fff; padding:20px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.05); }
+    .price { color:#1b8a2e; font-weight:700; font-size:1.4rem; margin:10px 0; }
+    .stock { color:#666; margin-bottom:12px; }
+    .btn { background:#0b5d6b; color:#fff; border:none; padding:10px 14px; border-radius:6px; cursor:pointer; }
+    a.back { display:inline-block; margin-bottom:14px; color:#0b5d6b; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <a href="{% url 'product_list' %}" class="back">← Back to products</a>
+
+  <div class="wrap">
+    <div class="thumb">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% else %}
+        <img src="https://via.placeholder.com/420x300?text=No+Image" alt="No image">
+      {% endif %}
+    </div>
+
+    <div class="details">
+      <h1>{{ product.name }}</h1>
+      <div class="price">₦{{ product.price }}</div>
+      <div class="stock">Stock: {{ product.stock }}</div>
+      <p>{{ product.description|linebreaks }}</p>
+      <a href="{% url 'add_to_cart' product.id %}" class="btn">Add to Cart</a>
+    </div>
+  </div>
+</body>
+</html>

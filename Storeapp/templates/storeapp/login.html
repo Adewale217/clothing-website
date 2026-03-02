@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="transfer-container">
+        <h2>login into your bank account</h2>
+        <p>Securely send money with ease to other users using their phone number.</p>
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST" id="signup-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter password">
+            </div>
+
+            <button type="submit" class="transfer-btn">login</button>
+        </form>
+
+       <p>don't have an account <a href="{% url 'signup' %}" class="back-btn">signup</a></p>
+    </div>
+</body>
+</html>

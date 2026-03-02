@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Products</title>
+    <style>
+        /* Header Styles */
+        header {
+            background: #2222;
+            color: #fff;
+            position: fixed; /* Fix the navbar to the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure it stays above other content */
+            box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);            
+        }
+
+        header .container {  
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+        }
+
+        .nav-list {     
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-list li {
+            position: relative;
+        }
+
+        .nav-list a {       
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%; /* Aligns dropdown below the parent */
+            left: 0;
+            background: #fff;
+            color: #333;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border: 1px solid #ddd;
+            min-width: 150px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .dropdown-menu li {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f0f0f0;
+        }
+
+        /* Show Dropdown on Hover */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Ensure content below navbar is visible */
+        body {
+            padding-top: 0px; /* Adjust for the height of the fixed navbar */
+        }
+                
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .product-card h2 {
+            color: #333;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+          <h1>Temu Store</h1>
+          <nav>
+            <ul class="nav-list">
+              <li><a href="clothing.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#">Products</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#producte">Men</a></li>
+                  <li><a href="#products">Women</a></li>
+                  <li><a href="kidsclothing.html">Kids</a></li>
+                  <li><a href="#accessories">Accessories</a></li>
+                </ul>
+              </li>
+              <li><a href="#about">About</a></li>
+              <li><a href="clothing contact.html">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+    </header>
+
+    <div class="">
+        
+    </div>
+
+    {% if products %}
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <a href="{% url 'product_detail' product.pk %}" style="text-decoration: none; color: inherit;">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100%; max-width:250px; border-radius:8px;">
+                    {% else %}
+                        <img src="https://via.placeholder.com/250x200?text=No+Image" alt="No image" style="width:100%; max-width:250px; border-radius:8px;">
+                    {% endif %}
+                    <h2>{{ product.name }}</h2>
+                    <p>Price: ₦{{ product.price }}</p>
+                    <p>{{ product.description|truncatechars:60 }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p style="text-align:center;">No products available yet.</p>
+    {% endif %}
+</body>
+</html>
